@@ -1,0 +1,14 @@
+
+<p><h2>some title</h2></p>
+
+<p><a href="/conneg/1">Link to some title</a></p>
+
+
+
+    <form action="/conneg/1" method="POST">
+        Title:<br>
+        <input type="text" name="Title"><br>
+
+        <input type="hidden" name="_method" value="put" />
+        <input type="submit" value="Submit">
+    </form>

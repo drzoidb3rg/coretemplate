@@ -1,0 +1,93 @@
+﻿@using System.Security.Claims
+@using System.Threading
+@using System.Threading.Tasks
+@using DocSupply.Framework
+@using Microsoft.ApplicationInsights.AspNetCore.Extensions
+@using Microsoft.AspNetCore.Http
+@using Microsoft.Extensions.Options;
+@inject IOptions<AppSettings> OptionsApplicationConfiguration
+@inject IOptions<BuildVersion> BuildVersion
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta version="@BuildVersion.Value.BuildNumber">
+    <title>@ViewData["Title"] - DocSupply</title>
+    <!--[if lt IE 9]>
+    <script src="//cdn.nice.org.uk/V3/Scripts/html5shiv/html5shiv.js"></script>
+    <![endif]-->
+
+
+    <environment names="Development">
+        <link href="//cdn.nice.org.uk/V3/Content/NICE.bootstrap.css" rel="stylesheet" />
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+        <link href="//fonts.googleapis.com/css?family=Lato:200normal,200italic,300normal,300italic,400normal,400italic,700normal,700italic,900normal,900italic" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="~/css/site.css" />
+    </environment>
+    <environment names="Staging,Production">
+        <link href="//cdn.nice.org.uk/V3/Content/NICE.bootstrap.css" rel="stylesheet" />
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+        <link href="//fonts.googleapis.com/css?family=Lato:200normal,200italic,300normal,300italic,400normal,400italic,700normal,700italic,900normal,900italic" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+    </environment>
+    <meta content="//cdn.nice.org.uk/V3/Content/nice/favicon-144.png" name="msapplication-TileImage" />
+    <link rel="shortcut icon" href="//cdn.nice.org.uk/V3/Content/nice/favicon.ico" />
+    @Html.ApplicationInsightsJavaScript(TelemetryConfiguration)
+</head>
+<body>
+    <div id="nice_nav" class="navbar">
+        <div class="navbar-inner">
+            <div class="container">
+                <ul class="nav pull-right">
+
+
+                    @if (@Context.User.Identity.Name == null)
+                    {
+                        <li><a id="profile-link" class="profile-link gtm-login-link" href="@OptionsApplicationConfiguration.Value.AuthUrl?returnurl=@this.Context.Request.GetUri().ToString()"><i class="fa fa-user"></i> Login to OpenAthens</a></li>
+                    }
+                    else
+                    {
+                        <li class="dropdown">
+                            <a href="#" class="profile-link dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> @Context.User.Identity.Name <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="https://openathens.nice.org.uk/Hub">My OpenAthens Account</a></li>
+                                <li><a href="/signout" class="gtm-logout-link">Log out of Document Supply</a></li>
+                            </ul>
+                        </li>
+                    }
+                </ul>
+
+                <a href="http://www.nice.org.uk" class="brand">NICE</a>
+                <a href="/" class="tagline"><span>Document</span><br><span>Supply</span></a>
+            </div>
+        </div><!-- /navbar-inner -->
+    </div>
+    <div class="container body-content">
+        
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; 2016 - DocSupply</p>
+        </footer>
+    </div>
+
+    <environment names="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="//cdn.nice.org.uk/V3/Scripts/NICE.bootstrap.js"></script>
+        <script src="//cdn.nice.org.uk/V3/Scripts/bootstrap/bootstrap-dropdown.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery">
+        </script>
+        <script src="//cdn.nice.org.uk/V3/Scripts/NICE.bootstrap.js"></script>
+        <script src="//cdn.nice.org.uk/V3/Scripts/bootstrap/bootstrap-dropdown.js"></script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

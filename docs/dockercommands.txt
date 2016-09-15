@@ -1,0 +1,17 @@
+Running a Docker Container and Checking Connectivity
+====================================================
+
+1) Create running nginx container => docker run -d -p 80:80 --name webserver nginx
+
+2) Get the docker container id (xxxx) => docker ps -a
+
+3) Connect to the container => docker exec -it xxxx sh
+
+4) Get the host ip address from the container => /sbin/ip route|awk '/default/ { print $3 }'
+
+5) Install curl => apt-get update
+				=> apt-get install curl
+				=> apt-get install telnet
+				
+
+6) Issue curl requests to check what the container can contact.

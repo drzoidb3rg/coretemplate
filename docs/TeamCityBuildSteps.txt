@@ -1,0 +1,35 @@
+TeamCity build steps for docsupply dotnet core website
+======================================================
+
+
+1) Dotnet Restore  ==>  dotnet restore
+
+2) dotnet build and publish  ==>  cd src/DocSupply
+                                  dotnet publish -f netcoreapp1.0 -r debian.8-x64 -c Release -o bin/Docker/Release/app
+
+3) Run Tests  ==>  cd test/DocSupply.Tests
+                   dotnet test
+				   
+4) docker login  ==>  docker login -u %DOCKERHUB_USER% -p %DOCKERHUB_PASS% -e %DOCKERHUB_EMAIL%
+
+5) docker build  ==>  cd src/DocSupply/bin/Docker/Release/app
+					  docker build --pull=true --rm=true -f Dockerfile -t %IMAGE_NAME%:latest .
+					  
+6) docker tag  ==>  docker tag %IMAGE_NAME%:latest %IMAGE_NAME%:%COMMIT%_%build.counter%
+
+7) docker push latest  ==>  docker push %IMAGE_NAME%:latest
+
+8) docker push tagged  ==> docker push %IMAGE_NAME%:%COMMIT%_%build.counter%
+
+9) docker rmi  ==>  docker rmi -f %IMAGE_NAME%:latest
+					docker rmi -f %IMAGE_NAME%:%COMMIT%_%build.counter%
+					
+
+TeamCity custom parameters
+==========================
+
+COMMIT  ==>  %env.BUILD_VCS_NUMBER%
+DOCKERHUB_EMAIL  ==>  patrick.mcevoy@nice.org.uk
+DOCKERHUB_PASS  ==>  YTFmZWUwMjdkZWNjNzQxZDViMzc3NzU3
+DOCKERHUB_USER  ==>  niceshared
+IMAGE_NAME  ==>  nice/docsupply

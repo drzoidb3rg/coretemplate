@@ -1,0 +1,13 @@
+version: '2'
+
+services:
+  docsupply:
+    image: nice/docsupply
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    environment:
+      - AppSettings:RavenHost=http://192.168.138.218:8777
+      - AppSettings:AuthKey=XXXXXX

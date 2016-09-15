@@ -1,0 +1,14 @@
+Rancher Deployment Setup
+========================
+
+1) Select HDAS2 environment.
+
+2) Applications (top menu) ==> Stacks  ==> Test Section -==> Add Service button (not from the dropdown next to this button).
+
+3) Name = docsupply;  Description = document supply website;  Select Image = latest from dockerhub (e.g. nice/docsupply:8bdb279dbc918fae74a8649950da12ec411f0230_32 )
+
+4) Port map ==> Public: 8091  Private: 80
+
+5) Add variables via Applications (top menu) ==> Stacks  ==>  Locate appropriate service ==> Upgrade from dropdown list ==>  add appropriate environment variable and then press Upgrade button.
+   This setting then gets added to the global yaml file. To view it, go back to Applications (top menu) ==> Stacks and then select the dropdown next to the server group in question (e.g. Test).
+   Select View Config.

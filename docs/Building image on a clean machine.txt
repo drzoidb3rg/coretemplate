@@ -1,0 +1,95 @@
+
+Windows .net Core SDK, DotNetCore.1.0.0-SDK.Preview2-x64.exe
+
+	https://go.microsoft.com/fwlink/?LinkID=809122
+	
+	Test this install, open cmd window type 
+		dotnet --help
+
+		
+		--	Install docker msi (Stable), InstallDocker.msi
+		--			https://download.docker.com/win/stable/InstallDocker.msi
+					
+		--			Open docker for windows
+		--			Will ask you to enable and restart windows. Accept this
+					
+		--			WINDOWS 10, on Parallels, had to user beta version
+		--			plus enable virtualisation http://kb.parallels.com/uk/116239
+		--			Docker - network - dns servr - fixed (8.8.8.8)
+					
+		--			Currently doesn't work. Can't get hyper v to allocate an ip address inside parallels. 
+		--			Can't get any image to have an ip address, not just the docker vm
+	
+	
+	Flip back to old docker tool box that uses oracle virtual box
+	https://www.docker.com/products/docker-toolbox for windows
+	need to remove hyper -v . It complained about the default machine not existing
+	open docker quickstart terminal, starts to download an .iso. Creates virtual box, does a load of stuff. Should see a happy whale
+	docker-machine start default
+
+	in the docker shell we ran the following to avoid deamon connection error(can't see docker hub)
+	
+		docker-machine env default
+
+		eval "$(docker-machine env default)"
+	
+Install VS tools for Docker
+
+
+
+
+To build via command line. AS ADMINISTRATOR !!
+
+	
+	
+raw build
+    dotnet restore (discovers and restores for all the project.json it can find at run location)
+	dotnet build -f netcoreapp1.0 -c Release
+
+install bower (project home) CAN THIS BE PART OF THE REPO, SO BUILD AGENTS DON'T NEED NPM INSTALL
+ 
+  npm install bower 
+
+Enact node scripts to publish, all binaries, views, js, css etc
+
+	From anywhere on the machine (fully resolved paths)
+		dotnet publish -f netcoreapp1.0 -r debian.8-x64 -c Release -o C:\_src\docsupply\src\DocSupply\bin\Docker\Release\app C:\_src\docsupply\src\DocSupply
+
+	Or from the project.json location
+		dotnet publish -f netcoreapp1.0 -r debian.8-x64 -c Release -o bin\Docker\Release\app
+
+	(Bug found when ran from the solution directory with relative paths. It does not resolve the location of web.config in the bin\docker\Release\app directory.
+	Seems to double up the relative paths.)
+
+	
+	dotnet publish updates the web.config in the bin\docker\Release\app dir.
+	writes the following
+		<aspNetCore processPath="dotnet" arguments=".\DocSupply.dll"
+
+	If a web.config exists in bin\Docker\Release\app, AND has been updated. The publish step is complete.
+
+
+	To build docker image. From the project.json directory. We are going to delegate the docker build to docker-compose.
+	We specify the service name, and the build section from the docker-compose.yml
+		
+		docker-compose -f 'C:\_src\docsupply\src\DocSupply\bin\Docker\Release\app\docker-compose.yml' -p docsupply build
+
+
+	Running the actual DockerTask script, builds and releases. Now it can see bower.
+	
+	add start.ps1, docker-compose.ps1 from this web site to C:\Program Files\Docker Toolbox
+		https://gist.github.com/au-phiware/25213e72c80040f398ba#file-docker-compose-ps1
+	
+	type powershell then
+	 .\DockerTask.ps1 -Build -Environment Release
+
+	
+	
+To do a docker push
+
+	docker login -u niceshared -p YTFmZWUwMjdkZWNjNzQxZDViMzc3NzU3 -e YTFmZWUwMjdkZWNjNzQxZDViMzc3NzU3
+	docker push nice/docsupply
+	
+	
+
+docker-compose -f 'C:\src\docsupply\src\DocSupply\bin\Docker\Release\app\docker-compose.yml' -p docsupply build

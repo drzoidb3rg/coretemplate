@@ -1,0 +1,24 @@
+{
+    "version": "1.0.0-*",
+
+    "dependencies": {
+        "Microsoft.AspNetCore.Authentication.Cookies": "1.0.0",
+        "Microsoft.AspNetCore.TestHost": "1.0.0",
+        "Microsoft.Extensions.Configuration.EnvironmentVariables": "1.0.0",
+        "Shouldly": "2.8.2"
+    },
+    "testRunner": "nunit",
+    "frameworks": {
+
+        "net461": {
+            "dependencies": {
+                "NUnit": "3.4.0",
+                "dotnet-test-nunit": "3.4.0-beta-2",
+                "RavenDB.Database": "3.5.0-rc-35166",
+                "RavenDB.Client": "3.5.0-rc-35166",
+                "DocSupply": "1.0.0-*"
+            }
+        }
+    }
+
+}

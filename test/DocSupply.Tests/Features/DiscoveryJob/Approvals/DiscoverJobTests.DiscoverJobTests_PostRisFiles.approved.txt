@@ -1,0 +1,18 @@
+
+<p><h2>Discovery job list</h2></p>
+
+
+    <p>Upload ris file to create a new discovery job</p>
+    <form method="post" enctype="multipart/form-data" action="/discoveryjoblist">
+        <input type="file" name="files" multiple />
+        <input type="submit" value="Upload" disabled />
+    </form>
+
+
+<h3>List of jobs</h3>
+
+    <div><a href="discoveryjob/2">file one</a> user one</div> 
+    <div><a href="discoveryjob/3">file two</a> user one</div> 
+
+
+

@@ -1,0 +1,21 @@
+﻿@model DocSupply.Features.Conneg.Models.ConnegHypermedia
+@{
+    ViewData["Title"] = "Conneg";
+}
+
+<p><h2>@Model.Title</h2></p>
+
+<p><a href="@Model.Id">Link to @Model.Title</a></p>
+
+
+
+@if(Model.CanPut())
+{
+    <form action="@Model.Id" method="POST">
+        Title:<br>
+        <input type="text" name="Title"><br>
+
+        <input type="hidden" name="_method" value="put" />
+        <input type="submit" value="Submit">
+    </form>
+}

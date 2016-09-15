@@ -1,0 +1,42 @@
+Setting up ASP NET Core 1.0 and Docker for Windows for VS 2015 Debugging
+========================================================================
+
+1) Ensure VS 2015 has Update 3 installed.
+
+2) Install .NET Core 1.0 for visual studio by following the steps here:
+
+   https://www.microsoft.com/net/core#windows
+   
+3) Install Docker for Windows as per this article :
+
+   https://docs.docker.com/docker-for-windows/
+   
+4) Install Docker Tools for Visual Studio 2015 - Preview from here:
+
+   https://visualstudiogallery.msdn.microsoft.com/0f5b2caa-ea00-41c8-b8a2-058c7da0b3e4
+   
+   ****Note the following potential pitfalls****
+   
+   
+   1) In docker settings (right click docker icon in taskbar), select the shared drives tab and make sure the drive containing the code (probably c:) is ticked. You'll be prompted
+      for an admin account and password. If you don't have one, create a new admin account.
+	  
+   2) Make sure you have stopped local IIS. Otherwise you'll get this error when you run in Visual Studio:  
+   
+      SECURITY WARNING: You are building a Docker image from Windows against a non-Windows Docker host. 
+	  All files and directories added to build context will have '-rwxr-xr-x' permissions. 
+	  It is recommended to double check and reset permissions for sensitive files and directories.
+
+   3) In docker settings (right click docker icon in taskbar), select the network tab and make sure the fixed DNS Server 8.8.8.8 is selected. If this isn't set, the docker/images online
+      rep won't be accessible.
+	  
+   4) When making changes to the docker-compose.yml or docker-compose.debug.yml files, be aware that any tabs in these files will cause errors. To see the actual cause of error, run 
+      natively and check the debugger output. =>
+	  
+	  In powershell, navigate to the directory that contains the docker compose file.
+	  
+	  docker build -t nice/docsupply .
+	  
+	  docker-compose up -d nice/docsupply
+	  
+	  

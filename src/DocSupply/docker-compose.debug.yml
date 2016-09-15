@@ -1,0 +1,16 @@
+version: '2'
+
+services:
+  docsupply:
+    image: username/docsupply:Debug
+    build:
+      context: .
+      dockerfile: Dockerfile.debug
+    environment:
+      - REMOTE_DEBUGGING=${REMOTE_DEBUGGING}
+      - AppSettings:RavenHost=http://192.168.138.218:8777
+      - AppSettings:AuthKey=XXXXXX
+    ports:
+      - "80:80"
+    volumes:
+      - .:/app

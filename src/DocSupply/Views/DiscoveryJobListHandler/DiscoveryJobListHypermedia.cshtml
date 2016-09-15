@@ -1,0 +1,28 @@
+﻿@model DocSupply.Features.DiscoveryJob.DiscoveryJobListHypermedia
+
+@{
+    ViewData["Title"] = "Discovery Job List";
+}
+
+<p><h2>@Model.Title</h2></p>
+
+
+@if (Model.CanPost())
+{
+    <p>Upload ris file to create a new discovery job</p>
+    <form method="post" asp-action="Post" enctype="multipart/form-data" asp-antiforgery="false">
+        <input type="file" name="files" multiple />
+        <input type="submit" value="Upload" disabled />
+    </form>
+}
+
+
+<h3>List of jobs</h3>
+
+@foreach (var job in Model.Collection)
+{
+    <div><a href="@job.Id">@job.FileName</a> @job.UserName</div> 
+}
+
+
+

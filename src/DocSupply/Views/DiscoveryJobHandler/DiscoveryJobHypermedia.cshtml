@@ -1,0 +1,27 @@
+﻿@using System.Threading.Tasks
+@using DocSupply.RisParser
+@model DocSupply.Features.DiscoveryJob.DiscoveryJobHypermedia
+
+@{
+    ViewData["Title"] = "Discovery Job";
+}
+
+<p><h2>@Model.Title</h2></p>
+
+
+<br />
+<a href="/discoveryjoblist">Back to discovery list </a>
+
+<h1>Document Results</h1>
+<h2>File Name: @Model.FileName</h2>
+<ol>
+    @foreach (var doc in Model.Risfile.Docs)
+    {
+       <!-- hypermedia should be modelled better, to avoid inlince code like this -->
+      <li>@doc.Lines.FirstOrDefault(x => x.Code.Equals(RisCode.Title)).Data;</li>
+    }
+</ol>
+
+
+
+

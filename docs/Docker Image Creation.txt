@@ -1,0 +1,41 @@
+Docker Image Creation
+=====================
+
+1) Navigate to project directory (location of the project.json file)
+
+2) dotnet restore
+
+3) dotnet publish -f netcoreapp1.0 -r debian.8-x64 -c Release -o bin/Docker/Release/app
+
+   Notes
+   =====
+   
+   dotnet publish can be run 
+   
+   a) from anywhere on the machine (full paths are required)
+		dotnet publish -f netcoreapp1.0 -r debian.8-x64 -c Release -o C:\_src\docsupply\src\DocSupply\bin\Docker\Release\app C:\_src\docsupply\src\DocSupply
+
+   Or 
+   
+   b) from the project.json location
+		dotnet publish -f netcoreapp1.0 -r debian.8-x64 -c Release -o bin\Docker\Release\app
+
+	(Bug found when ran from the solution directory with relative paths. It does not resolve the location of web.config in the bin\docker\Release\app directory.
+	Seems to double up the relative paths.)
+
+	
+	dotnet publish updates the web.config in the bin\docker\Release\app dir.
+	writes the following
+		<aspNetCore processPath="dotnet" arguments=".\DocSupply.dll"
+
+	If a web.config exists in bin\Docker\Release\app, AND has been updated. The publish step is complete.
+
+
+4)  docker build --pull=true --rm=true -f Dockerfile -t nice/docsupply-ui:latest .
+
+    Notes
+	=====
+	
+	Ensure that the docker build command is run from the location of the published docker file (Docker/Release/app), not from within the project directory. 
+	Otherwise, the build will appear to have been successful but the image will not have all necessary dlls included and will fail with the SDK error when run ussing docker run.
+	

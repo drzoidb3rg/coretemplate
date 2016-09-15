@@ -1,0 +1,46 @@
+
+Docker 
+
+
+Create dlls, manual build or VS
+
+Go into project director that holds file 'DockerFile'
+
+Build a docker image
+
+	docker build -t nice/docsupply .
+	
+	View the available images: docker images
+	
+Run docker image
+
+	'docker run' runs the raw image, but does not have the dockercompose information
+
+	docker-compose up : this will start ALL images with a docker compose file. DONT do this
+	
+	docker-compose up -d docsupply   : -d = silent; docsupply is the service name in the docker-compose.yml
+	
+	
+Docker compose notes :
+
+image : [repo]/[imagename]:[tag]
+	
+public repo on docker hub is nice, ie nice/hdas2:latest
+
+local repo seems to be configured as default "username". so image: username/docsupply:latest	
+
+
+Gotchas :
+
+	docker build, must be against a DockerFile in the same directory as the dlls. Because of this assumption in the DockerFile		
+					# Set the Working Directory
+					WORKDIR /app
+	
+	
+
+Build .net core solution from the location of the docker file
+
+ .\DockerTask.ps1 -Build -Environment Release
+ 
+This requires the .net core framework sdk to be installed as runs the dotnet command line call.
+Also, will require docker for windows to be installed on teamcity build agent.

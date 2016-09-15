@@ -1,0 +1,12 @@
+﻿
+The build server uses the project_posix.json version to build the main project.
+This exludes any winx86 config, specifically :
+	        "net461": {
+            "dependencies": {
+                "RavenDB.Client": "3.5.0-rc-35165"
+            }
+			}
+
+This is needed in Debug because the test project references Raven.Database, which only has a Winx86 dll.
+
+        

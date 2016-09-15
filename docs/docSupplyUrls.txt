@@ -1,0 +1,37 @@
+Hosting WEB API on Mono with Docker
+===================================
+
+https://www.oxfordcc.co.uk/blog/aspnet-web-api-on-linux-apache-with-mono
+
+http://www.bloggedbychris.com/2015/09/28/running-asp-net-web-api-docker/
+
+http://dotnetliberty.com/index.php/2015/10/25/asp-net-5-running-in-docker-on-windows/
+
+https://github.com/aspnet/aspnet-docker
+
+https://github.com/aspnet/home
+
+https://lostechies.com/gabrielschenker/2016/05/17/running-and-debugging-an-asp-net-core-rc2-application-running-in-docker/
+
+https://docs.asp.net/en/latest/intro.html
+
+
+Discovery APIs
+==============
+
+https://www.oclc.org/developer/develop/web-services/worldcat-knowledge-base-api/openurl-resource.en.html
+
+https://doaj.org/api/v1/docs   (example request: https://doaj.org/api/v1/search/articles/doi%3A10.1186%2F1471-2148-12-257)
+
+
+
+Raven 4
+=======
+
+https://github.com/ayende/ravendb/tree/v4.0
+
+
+Raven 3.5
+=========
+
+https://groups.google.com/forum/#!topic/ravendb/uSkdol6UxH4

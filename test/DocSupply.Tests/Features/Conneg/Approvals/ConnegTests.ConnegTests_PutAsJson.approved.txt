@@ -1,0 +1,16 @@
+{
+  "id": "/conneg/1",
+  "type": "Conneg",
+  "title": "[new title]",
+  "operation": [
+    {
+      "method": "PUT",
+      "supportedProperty": [
+        {
+          "property": "Title",
+          "range": "text"
+        }
+      ]
+    }
+  ]
+}

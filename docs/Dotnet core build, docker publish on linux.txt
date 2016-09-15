@@ -1,0 +1,70 @@
+
+
+
+As shailesh
+
+install following this web page : https://www.microsoft.com/net/core#debian
+
+this failed and we needed to run as update as recommended for command
+	sudo apt-get (update)? curl libunwind8 gettext 
+
+
+install npm, if not installed : https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions
+
+
+navigate to project folder
+
+npm install bower (sudo, gloabally)
+
+	sudo npm install -g bower
+
+
+Run tests
+
+	From test project root
+		dotnet restore
+		dotnet test
+
+dotnet publish
+   
+	from the location of the project.json, we want to publish
+	relative paths matter, make sure these are correct from the location dotnet.exe is run
+	
+		dotnet publish -f netcoreapp1.0 -r debian.8-x64 -c Release -o bin/Docker/Release/app
+	
+Docker build
+
+  Ensure that we run the docker build command in the location of the published docker file. Docker/Release/app
+  		sudo docker build --pull=true --rm=true -f Dockerfile -t nice/docsupply-ui:latest .
+
+Docker tag (OPTIONAL : if we need an audit of images by build number)
+
+	sudo docker tag nice/docsupply:latest nice/docsupply:5_11
+  
+Docker login
+
+	sudo docker login -u niceshared -p YTFmZWUwMjdkZWNjNzQxZDViMzc3NzU3 -e patrick.mcevoy@nice.org.uk
+
+Docker push
+
+	sudo docker push nice/docsupply:latest
+
+Docker remove
+	
+	sudo docker rmi -f nice/docsupply:latest
+
+
+
+	
+useful linux command if needed
+
+	delete folder
+		sudo rm -rf folderName
+		
+		Check permissions on app folder
+		ls -l 
+ 
+	give permissions and ownership to the user running the dotnet command. (If required)
+		sudo chmod 755 /bin -R
+		sudo chown shailesh: app
+	
